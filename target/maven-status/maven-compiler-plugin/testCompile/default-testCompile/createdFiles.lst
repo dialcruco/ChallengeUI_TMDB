@@ -1,0 +1,11 @@
+pages\BasePage.class
+tests\Hooks.class
+pages\ResultsPage.class
+pages\LoginPage.class
+tests\MovieTest.class
+pages\ActorPage.class
+utils\BrowserFactory.class
+pages\LandingPage.class
+pages\MoviePage.class
+tests\LoginTest.class
+pages\ProfilePage.class

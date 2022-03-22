@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test-method Suite">
+
+    <test name="ChromeTests" parallel="methods" thread-count="4">
+        <parameter name="browser" value="Chrome"></parameter>
+        <classes>
+            <class name="tests.LoginTest">
+                <methods>
+                    <include name="successfulLogin"></include>
+                </methods>
+            </class>
+            <class name="tests.MovieTest">
+                <methods>
+                    <include name="successfulSearch"></include>
+                    <include name="verifyMovieGenreFilter"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
