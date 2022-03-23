@@ -19,7 +19,7 @@ public class ResultsPage extends BasePage{
     private By movieChosenFromResultsBy = By.xpath("//*[@id = \"media_results\"]//div[@class = \"content\"]//a[@title = \"The Dark Knight\"]");
     private String movieChosenFromResults = "//*[@id = \"media_results\"]//div[@class = \"content\"]//a[@title = '%s']";
 //    private By actionFiltedActivated = By.xpath("//*[@id=\"with_genres\"]//li[@class = \"selected\"]");
-private By actionFiltedActivated = By.xpath("//*[@class = \"apply small background_color light_blue disabled\"]//p[@class = \"load_more\"]");
+    private By searchButtonDisabled = By.xpath("//*[@class = \"apply small background_color light_blue disabled\"]//p[@class = \"load_more\"]");
     //*[@class = "apply small background_color light_blue disabled"]//p[@class = "load_more"]
 
     private By sortBox = By.xpath("//*[@class = \"k-dropdown-wrap k-state-default\"]//span[@class = \"k-icon k-i-arrow-60-down\"]");
@@ -73,7 +73,7 @@ private By actionFiltedActivated = By.xpath("//*[@class = \"apply small backgrou
     public ResultsPage waitForNewResults(){
         //driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         WebDriverWait waitActionFilter= new WebDriverWait(driver,5);
-        waitActionFilter.until(ExpectedConditions.presenceOfElementLocated(actionFiltedActivated));
+        waitActionFilter.until(ExpectedConditions.presenceOfElementLocated(searchButtonDisabled));
         return new ResultsPage(driver);
     }
 
