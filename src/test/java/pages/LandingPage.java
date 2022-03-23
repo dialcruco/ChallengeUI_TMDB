@@ -19,12 +19,19 @@ public class LandingPage extends BasePage{
         return new LoginPage(driver);
     }
 
+    /**
+     * (Method description)
+     * @param query lkshlkfa
+     * @return aslkdhsakdj
+     */
     public LandingPage searchQuery(String query){
+        //Log: searching query: (parameter query)
         driver.findElement(searchBar).sendKeys(query);
         return new LandingPage(driver);
     }
 
     public ResultsPage searchButtonClick(){
+        //Log: Clicking on search button.
         driver.findElement(searchButton).click();
         return new ResultsPage(driver);
     }

@@ -6,6 +6,9 @@ import pages.*;
 
 public class MovieTest extends Hooks {
 
+    /**
+     * (Test description)
+     */
     @Test
     public void successfulSearch(){
         //Log: ejecutando metodo de busqueda.
@@ -18,6 +21,9 @@ public class MovieTest extends Hooks {
         Assert.assertEquals(resultsPageSearch.getMovieName(),"Fight Club");
 
     }
+    /**
+     * (Test description)
+     */
     @Test
     public void verifyMovieGenreFilter(){
         LandingPage landingPageGenreFilter = new LandingPage(getDriver());
@@ -27,7 +33,7 @@ public class MovieTest extends Hooks {
                 .clickOnSearch()
                 .waitForNewResults();
 
-        MoviePage movieInfo = resultsPageFilter.selectMovieFromSearch("Bring the Soul: The Movie");
+        MoviePage movieInfo = resultsPageFilter.selectMovieFromSearch("The Dark Knight");
 
         String tempVerify = movieInfo.getMovieGenre();
         Assert.assertTrue(tempVerify.contains("Action"));
@@ -39,7 +45,7 @@ public class MovieTest extends Hooks {
         LandingPage landingPageActingTimeline = new LandingPage(getDriver());
 
         ResultsPage resultsPageValidate = landingPageActingTimeline.clickOnNowPlayingMovies();
-        MoviePage movieSelectedValidate = resultsPageValidate.selectMovieToValidate();
+        MoviePage movieSelectedValidate = resultsPageValidate.selectMovieFromSearch("Blacklight");
         ActorPage actorSelectedValidate = movieSelectedValidate.selectActor();
 
         String tempValidate = actorSelectedValidate.getMovieFromActor();

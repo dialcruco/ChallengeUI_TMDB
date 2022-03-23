@@ -16,9 +16,11 @@ public class ResultsPage extends BasePage{
     private By filterBox = By.xpath("//*[@id=\"media_v4\"]//div[@data-callback = \"filterCallback()\"]");
     private By actionFilter = By.xpath("//*[@id=\"with_genres\"]//li[@data-value = \"28\"]");
     private By searchButton = By.xpath("//*[@class = \"apply full background_color light_blue enabled fixed\"]//p[@class = \"load_more\"]");
-    //private By movieChosenFromResults = By.xpath("//*[@id = \"media_results\"]//div[@class = \"content\"]//a[@title = '%s']");
+    private By movieChosenFromResultsBy = By.xpath("//*[@id = \"media_results\"]//div[@class = \"content\"]//a[@title = \"The Dark Knight\"]");
     private String movieChosenFromResults = "//*[@id = \"media_results\"]//div[@class = \"content\"]//a[@title = '%s']";
-    private By movieChosenValidate = By.xpath("//*[@id = \"media_results\"]//div[@class = \"content\"]//a[@title = \"Blacklight\"]");
+//    private By actionFiltedActivated = By.xpath("//*[@id=\"with_genres\"]//li[@class = \"selected\"]");
+private By actionFiltedActivated = By.xpath("//*[@class = \"apply small background_color light_blue disabled\"]//p[@class = \"load_more\"]");
+    //*[@class = "apply small background_color light_blue disabled"]//p[@class = "load_more"]
 
     private By sortBox = By.xpath("//*[@class = \"k-dropdown-wrap k-state-default\"]//span[@class = \"k-icon k-i-arrow-60-down\"]");
     private By dateAscendingOption = By.xpath("//*[@id =\"sort_by_listbox\"]//li[@data-offset-index = \"5\"]");
@@ -49,8 +51,9 @@ public class ResultsPage extends BasePage{
     }
 
     public MoviePage selectMovieFromSearch(String movieName1){
+        //visibilityOfElementLocated(movieChosenFromResultsBy));
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElement(By.xpath(String.format(movieChosenFromResults, movieName1))).click();
-
         /*
         public void setAFilter(String filter, String value) {
             driver.findElement(By.xpath(String.format(xpathFilters, filter, value))).click();
@@ -59,13 +62,18 @@ public class ResultsPage extends BasePage{
          */
         return new MoviePage(driver);
     }
+    /*
     public MoviePage selectMovieToValidate(){
-        driver.findElement(movieChosenValidate).click();
+        driver.findElement(movieChosenFromResults).click();
         return new MoviePage(driver);
     }
 
+     */
+
     public ResultsPage waitForNewResults(){
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        WebDriverWait waitActionFilter= new WebDriverWait(driver,5);
+        waitActionFilter.until(ExpectedConditions.presenceOfElementLocated(actionFiltedActivated));
         return new ResultsPage(driver);
     }
 
