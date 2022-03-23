@@ -3,18 +3,9 @@
 
     <test name="ChromeTests" parallel="methods" thread-count="4">
         <parameter name="browser" value="Chrome"></parameter>
-        <classes>
-            <class name="tests.LoginTest">
-                <methods>
-                    <include name="successfulLogin"></include>
-                </methods>
-            </class>
-            <class name="tests.MovieTest">
-                <methods>
-                    <include name="successfulSearch"></include>
-                    <include name="verifyMovieGenreFilter"></include>
-                </methods>
-            </class>
-        </classes>
+        <packages>
+            <package name="tests.*"/>
+        </packages>
     </test>
+
 </suite>

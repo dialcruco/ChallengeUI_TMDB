@@ -1,0 +1,1 @@
+{"uuid":"5b432570-a93a-45a8-96bf-f9d89eea5129","name":"tests.Hooks.setup","children":["7df5c063-43ce-445c-a7bd-8ca7448622e7"],"description":"","befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1648006607999,"stop":1648006615321}],"afters":[],"start":1648006607999,"stop":1648006615321}

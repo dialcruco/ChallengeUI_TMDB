@@ -16,7 +16,7 @@ public class ActorPage extends BasePage{
 
     //Método de verificación de película escogida en la lista del actor escogido.
     public String getMovieFromActor(){
-        List<WebElement> movies = driver.findElements(movieListOfActor);
+        List<WebElement> movies = mapElements(movieListOfActor);
         String allMovies = "";
         for(WebElement movieSelected : movies){
             allMovies += movieSelected.getText();

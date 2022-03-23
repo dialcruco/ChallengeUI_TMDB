@@ -8,21 +8,20 @@ import java.util.List;
 
 public class MoviePage extends BasePage{
 
-    private By movieGenres = By.xpath("//*[@class=\"genres\"]/a");
-    private By actorToSelect = By.xpath("//*[@id = \"cast_scroller\"]//a[@href = \"/person/3896-liam-neeson\"]");
-
+    private final By movieGenres = By.xpath("//*[@class=\"genres\"]/a");
+    private final String actorSelected = "//*[@id = \"cast_scroller\"]//img[@alt = '%s']";
 
     public MoviePage(WebDriver driver) {
         super(driver);
     }
 
-    public ActorPage selectActor(){
-        driver.findElement(actorToSelect).click();
+    public ActorPage selectActor(String actorToSelect){
+        mapElement(By.xpath(String.format(actorSelected, actorToSelect))).click();
         return new ActorPage(driver);
     }
 
     public String getMovieGenre(){
-        List<WebElement> genres = driver.findElements(movieGenres);
+        List<WebElement> genres = mapElements(movieGenres);
         String allGenres = "";
         for (WebElement genreToChoose : genres) {
             allGenres += genreToChoose.getText();

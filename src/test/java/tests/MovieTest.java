@@ -26,6 +26,7 @@ public class MovieTest extends Hooks {
      */
     @Test
     public void verifyMovieGenreFilter(){
+
         LandingPage landingPageGenreFilter = new LandingPage(getDriver());
         ResultsPage resultsPageFilter = landingPageGenreFilter.clickOnTopRatedMovies()
                 .selectActionFilter()
@@ -41,15 +42,17 @@ public class MovieTest extends Hooks {
 
     @Test
     public void validateActingTimeline(){
+        String movie = "Gold";
+        String actor = "Susie Porter";
 
         LandingPage landingPageActingTimeline = new LandingPage(getDriver());
 
         ResultsPage resultsPageValidate = landingPageActingTimeline.clickOnNowPlayingMovies();
-        MoviePage movieSelectedValidate = resultsPageValidate.selectMovieFromSearch("Blacklight");
-        ActorPage actorSelectedValidate = movieSelectedValidate.selectActor();
+        MoviePage movieSelectedValidate = resultsPageValidate.selectMovieFromSearch(movie);
+        ActorPage actorSelectedValidate = movieSelectedValidate.selectActor(actor);
 
         String tempValidate = actorSelectedValidate.getMovieFromActor();
-        Assert.assertTrue(tempValidate.contains("Blacklight"));
+        Assert.assertTrue(tempValidate.contains(movie));
 
 
     }
@@ -59,11 +62,8 @@ public class MovieTest extends Hooks {
         ResultsPage resultsPageSorting = landingPageSorting.clickOnTopRatedMovies();
 
          resultsPageSorting.selectSortAndSearch()
-                 .waitForResults()
-                 .verifyAscendingOrder(); //No está haciendo la espera y por ende guarda la misma página sin los filtros.
+                 .waitForNewResults();
 
-        //Assert.assertEquals(resultsPageSorting.getPopMovie1(),"Passage of Venus");
-
-
+        Assert.assertTrue(resultsPageSorting.verifyAscendingOrder(4));
     }
 }
