@@ -26,18 +26,4 @@ public class Hooks {
     public void tearDown(){
         getDriver().quit();
     }
-    /*
-    @AfterMethod
-    public void tearDown() {
-        File screenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(screenshot,new File("./target/"+ Math.random()*6 +"screenshot.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        driver.quit();
     }
-
-     */
-
-}
