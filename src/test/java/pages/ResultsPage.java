@@ -1,5 +1,7 @@
 package pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,39 +24,46 @@ public class ResultsPage extends BasePage{
     private final By searchButtonSort = By.xpath("//*[@class = \"apply small background_color light_blue enabled\"]//p[@class = \"load_more\"]");
     private final By datesOfMovies = By.xpath("//*[@id =\"media_results\"]//div[@class = \"content\"]//p");
 
+    private static Logger loggerResultsPage = LogManager.getLogger(ResultsPage.class);
 
     public ResultsPage(WebDriver driver) {
         super(driver);
     }
 
-    public ResultsPage selectActionFilter(){
+    public ResultsPage selectActionGenre(){
+        loggerResultsPage.info("Selecting genre: 'Action' from filter box.");
         mapElement(filterBox).click();
         mapElement(actionFilter).click();
         return new ResultsPage(driver);
     }
     public ResultsPage waitForSearchButtonAppears(){
+
         WebDriverWait waitSearchButton = new WebDriverWait(driver,5);
         waitSearchButton.until(ExpectedConditions.visibilityOfElementLocated(searchButton));
         return new ResultsPage(driver);
     }
 
     public ResultsPage clickOnSearch(){
+        loggerResultsPage.info("Clicking on 'Search' button.");
         mapElement(searchButton).click();
         return new ResultsPage(driver);
     }
 
     public MoviePage selectMovieFromSearch(String movieNameToSelect){
+        loggerResultsPage.info("Selecting the movie: " + movieNameToSelect + " from results.");
         mapElement(By.xpath(String.format(movieChosenFromResults, movieNameToSelect))).click();
         return new MoviePage(driver);
     }
 
-    public ResultsPage waitForNewResults(){
+    public ResultsPage waitForNewResults(String option){
+        loggerResultsPage.info("Waiting the results of option selected appears on screen: '" + option + "'.");
         WebDriverWait waitActionFilter= new WebDriverWait(driver,5);
         waitActionFilter.until(ExpectedConditions.presenceOfElementLocated(searchButtonDisabled));
         return new ResultsPage(driver);
     }
 
     public ResultsPage selectSortAndSearch(){
+        loggerResultsPage.info("Selecting sorting option: 'Release Date Ascending'.");
         mapElement(sortBox).click();
         mapElement(dateAscendingOption).click();
         mapElement(searchButtonSort).click();
@@ -63,10 +72,13 @@ public class ResultsPage extends BasePage{
 
 
     public String getMovieName(){
+        loggerResultsPage.info("Getting movie name from page.");
         return mapElement(movieName).getText();
+
     }
 
     public boolean verifyAscendingOrder(int numberOfMovies){
+        loggerResultsPage.info("Checking the dates of the first four are sorted in ascending order.");
         List<WebElement> dates = mapElements(datesOfMovies);
         int[] years = new int[numberOfMovies];
         boolean state = false;

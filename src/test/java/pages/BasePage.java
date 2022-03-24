@@ -1,5 +1,7 @@
 package pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,13 +18,17 @@ public class BasePage {
         this.driver = driver;
     }
 
+    private static Logger loggerBasePage = LogManager.getLogger(BasePage.class);
+
     public ResultsPage clickOnTopRatedMovies(){
+        loggerBasePage.info("Clicking on 'Top-Rated' movies.");
         driver.findElement(moviesButtonHome).click();
         driver.findElement(topRatedButton).click();
         return new ResultsPage(driver);
     }
 
     public ResultsPage clickOnNowPlayingMovies(){
+        loggerBasePage.info("Clicking on 'Now Playing' movies.");
         driver.findElement(moviesButtonHome).click();
         driver.findElement(nowPlayingButton).click();
         return new ResultsPage(driver);
@@ -32,5 +38,7 @@ public class BasePage {
         return driver.findElement(locator);
     }
 
-    public List<WebElement> mapElements(By locator){ return driver.findElements(locator); }
+    public List<WebElement> mapElements(By locator){
+        return driver.findElements(locator);
+    }
 }

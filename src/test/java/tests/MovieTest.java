@@ -4,21 +4,28 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
+import org.apache.logging.log4j.*;
+
+
 public class MovieTest extends Hooks {
+
+    private String movieToSearch = "Fight Club";
+
+    private static Logger loggerMovieTest = LogManager.getLogger(MovieTest.class);
 
     /**
      * (Test description)
      */
     @Test
     public void successfulSearch(){
-        //Log: ejecutando metodo de busqueda.
+        loggerMovieTest.info("Test: Successful search of the movie: " + movieToSearch);
         LandingPage landingPageSearch = new LandingPage(getDriver());
-        landingPageSearch.searchQuery("Fight Club");
+        landingPageSearch.searchQuery(movieToSearch);
 
         ResultsPage resultsPageSearch = landingPageSearch.searchButtonClick();
 
-        //Log: "Verificando successful search": info de la pelicula Fight Club.
-        Assert.assertEquals(resultsPageSearch.getMovieName(),"Fight Club");
+        Assert.assertEquals(resultsPageSearch.getMovieName(), movieToSearch);
+
 
     }
     /**
@@ -26,13 +33,13 @@ public class MovieTest extends Hooks {
      */
     @Test
     public void verifyMovieGenreFilter(){
-
+        loggerMovieTest.info("Test: Verify the Action Movies Filter.");
         LandingPage landingPageGenreFilter = new LandingPage(getDriver());
         ResultsPage resultsPageFilter = landingPageGenreFilter.clickOnTopRatedMovies()
-                .selectActionFilter()
+                .selectActionGenre()
                 .waitForSearchButtonAppears()
                 .clickOnSearch()
-                .waitForNewResults();
+                .waitForNewResults("Action");
 
         MoviePage movieInfo = resultsPageFilter.selectMovieFromSearch("The Dark Knight");
 
@@ -42,6 +49,8 @@ public class MovieTest extends Hooks {
 
     @Test
     public void validateActingTimeline(){
+        loggerMovieTest.info("Test: Validating an actor appears on a movie selected.");
+
         String movie = "Gold";
         String actor = "Susie Porter";
 
@@ -51,18 +60,19 @@ public class MovieTest extends Hooks {
         MoviePage movieSelectedValidate = resultsPageValidate.selectMovieFromSearch(movie);
         ActorPage actorSelectedValidate = movieSelectedValidate.selectActor(actor);
 
-        String tempValidate = actorSelectedValidate.getMovieFromActor();
-        Assert.assertTrue(tempValidate.contains(movie));
+        String genres = actorSelectedValidate.getMovieFromActor();
+        Assert.assertTrue(genres.contains(movie));
 
 
     }
     @Test
     public void sortByDatesOnAscendingOrder(){
+        loggerMovieTest.info("Test: Verifying movies ascending sorting by date.");
         LandingPage landingPageSorting = new LandingPage(getDriver());
         ResultsPage resultsPageSorting = landingPageSorting.clickOnTopRatedMovies();
 
          resultsPageSorting.selectSortAndSearch()
-                 .waitForNewResults();
+                 .waitForNewResults("Release Date Ascending");
 
         Assert.assertTrue(resultsPageSorting.verifyAscendingOrder(4));
     }
